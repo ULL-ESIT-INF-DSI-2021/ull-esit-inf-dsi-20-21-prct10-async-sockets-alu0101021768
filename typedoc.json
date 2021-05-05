@@ -1,0 +1,9 @@
+{
+  "entryPoints": [
+    "./src/client.ts",
+    "./src/server.ts",
+    "./src/notes.ts",
+    "./src/types.ts"
+  ],
+  "out": "./docs"
+}
