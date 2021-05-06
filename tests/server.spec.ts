@@ -5,10 +5,10 @@ import {EventEmitter} from 'events';
 import {MessageEventEmitterServer} from '../src/eventEmitterServer';
 
 
-describe('MessageEventEmitterClient Tests', () => {
+describe('MessageEventEmitterserver Tests', () => {
   it('Should receive correctly a complete add request', () => {
     const socket = new EventEmitter();
-    const client = new MessageEventEmitterServer();
+    const server = new MessageEventEmitterServer();
     const request: RequestType = {
       type: 'add',
       user: "nestor",
@@ -16,14 +16,14 @@ describe('MessageEventEmitterClient Tests', () => {
       body: 'This is a red note',
       color: 'red',
     };
-    client.on('end', (message) => {
+    server.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
   });
   it('Should receive correctly a complete modify request', () => {
     const socket = new EventEmitter();
-    const client = new MessageEventEmitterServer();
+    const server = new MessageEventEmitterServer();
     const request: RequestType = {
       type: 'modify',
       user: "nestor",
@@ -31,45 +31,45 @@ describe('MessageEventEmitterClient Tests', () => {
       body: 'This is not a red note',
       color: 'green',
     };
-    client.on('end', (message) => {
+    server.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
   });
   it('Should receive correctly a complete list request', () => {
     const socket = new EventEmitter();
-    const client = new MessageEventEmitterServer();
+    const server = new MessageEventEmitterServer();
     const request: RequestType = {
       type: 'list',
       user: "nestor",
     };
-    client.on('end', (message) => {
+    server.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
   });
   it('Should receive correctly a complete read request', () => {
     const socket = new EventEmitter();
-    const client = new MessageEventEmitterServer();
+    const server = new MessageEventEmitterServer();
     const request: RequestType = {
       type: 'read',
       user: "nestor",
       title: "Green note",
     };
-    client.on('end', (message) => {
+    server.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
   });
   it('Should receive correctly a complete remove request', () => {
     const socket = new EventEmitter();
-    const client = new MessageEventEmitterServer();
+    const server = new MessageEventEmitterServer();
     const request: RequestType = {
       type: 'remove',
       user: "nestor",
       title: "Green note",
     };
-    client.on('end', (message) => {
+    server.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
