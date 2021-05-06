@@ -2,13 +2,14 @@ import {connect} from 'net';
 import {RequestType, ResponseType} from './types';
 import * as yargs from 'yargs';
 import * as chalk from 'chalk';
-
+import {MessageEventEmitterClient} from './eventEmitterClient';
 
 /**
  * @description Socket representing the client, that is connected to
  * the port 60300
  */
-const client = connect({port: 60300});
+const socket = connect({port: 60300});
+const client = new MessageEventEmitterClient(socket);
 
 /**
  * @description Yargs command snippet for the add option. This command expects
@@ -53,11 +54,11 @@ yargs.command({
         color: argv.color,
       };
 
-      client.write(JSON.stringify(req), (err) => {
+      socket.write(JSON.stringify(req), (err) => {
         if (err) {
           console.log(`Request could not be made: ${err.message}`);
         } else {
-          client.end();
+          socket.end();
         }
       });
     }
@@ -108,11 +109,11 @@ yargs.command({
         color: argv.color,
       };
 
-      client.write(JSON.stringify(req), (err) => {
+      socket.write(JSON.stringify(req), (err) => {
         if (err) {
           console.log(`Request could not be made: ${err.message}`);
         } else {
-          client.end();
+          socket.end();
         }
       });
     }
@@ -148,11 +149,11 @@ yargs.command({
         title: argv.title,
       };
 
-      client.write(JSON.stringify(req), (err) => {
+      socket.write(JSON.stringify(req), (err) => {
         if (err) {
           console.log(`Request could not be made: ${err.message}`);
         } else {
-          client.end();
+          socket.end();
         }
       });
     }
@@ -187,11 +188,11 @@ yargs.command({
         title: argv.title,
       };
 
-      client.write(JSON.stringify(req), (err) => {
+      socket.write(JSON.stringify(req), (err) => {
         if (err) {
           console.log(`Request could not be made: ${err.message}`);
         } else {
-          client.end();
+          socket.end();
         }
       });
     }
@@ -220,32 +221,23 @@ yargs.command({
         user: argv.user,
       };
 
-      client.write(JSON.stringify(req), (err) => {
+      socket.write(JSON.stringify(req), (err) => {
         if (err) {
           console.log(`Request could not be made: ${err.message}`);
         } else {
-          client.end();
+          socket.end();
         }
       });
     }
   },
 });
 
-let data = '';
-/**
- * @description Socket event 'data' where we accumulate the incoming
- * data from the server
- */
-client.on('data', (chunk) => {
-  data += chunk;
-});
-
 /**
  * @description Socket event 'end' where we process the information
  * incoming from the server
  */
-client.on('end', () => {
-  const res: ResponseType = JSON.parse(data);
+client.on('message', (message) => {
+  const res: ResponseType = message;
   if (!res.success) {
     console.log(chalk.red(res.output));
   } else if (res.type !== 'read' && res.type !== 'list') {
