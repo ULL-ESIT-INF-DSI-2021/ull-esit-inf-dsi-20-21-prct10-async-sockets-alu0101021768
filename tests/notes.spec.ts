@@ -110,9 +110,8 @@ describe('Notes class tests', () => {
   describe('listNotes function tests', () => {
     it(`notesInstance.listNotes('nestor')
      should equal "Your notes\nRed note"`, () => {
-      expect(notesInstance.listNotes('nestor')).to.equal("Your notes\u001b" +
-        "[32m\u001b[39m\n\u001b[32mGreen note\u001b[39m\u001b[31m\u001b[39" +
-        "m\n\u001b[31mRed note\u001b[39m");
+      expect(notesInstance.listNotes('nestor'))
+          .to.equal("Your notes\nGreen note\nRed note");
     });
   });
   describe('readNote function tests', () => {
@@ -124,7 +123,7 @@ describe('Notes class tests', () => {
     it(`notesInstance.readNote('nestor', 'Red note')
      should equal "Red note\nThis is a red note"`, () => {
       expect(notesInstance.readNote('nestor', 'Red note'))
-          .to.eql("Red note\n\u001b[31mThis is a red note\u001b[39m");
+          .to.eql("Red note\nThis is a red note");
     });
   });
 });
