@@ -4,7 +4,10 @@ import {RequestType, ResponseType} from './types';
 import {Notes} from './notes';
 import * as net from 'net';
 
-
+/**
+ * @description Class that inherits from EventEmitter and process all the clients
+ * requests and sends a response 
+ */
 export class MessageEventEmitterServer extends EventEmitter {
   private notesInstance: Notes;
   private server: net.Server;

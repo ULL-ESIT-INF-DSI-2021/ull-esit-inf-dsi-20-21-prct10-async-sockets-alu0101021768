@@ -3,7 +3,9 @@
     "./src/client.ts",
     "./src/server.ts",
     "./src/notes.ts",
-    "./src/types.ts"
+    "./src/types.ts",
+    "./src/eventEmitterClient.ts",
+    "./src/eventEmitterServer.ts"
   ],
   "out": "./docs"
 }

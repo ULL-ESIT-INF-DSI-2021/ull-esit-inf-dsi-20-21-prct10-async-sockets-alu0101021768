@@ -233,7 +233,7 @@ yargs.command({
 });
 
 /**
- * @description Socket event 'end' where we process the information
+ * @description Socket event 'message' where we process the information
  * incoming from the server
  */
 client.on('message', (message) => {

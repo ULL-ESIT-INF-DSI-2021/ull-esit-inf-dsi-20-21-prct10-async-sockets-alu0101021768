@@ -4,14 +4,14 @@ import {mkdirSync} from 'fs';
 import {writeFileSync} from 'fs';
 import {readdirSync} from 'fs';
 import {readFileSync} from 'fs';
-import { rmSync } from 'fs';
-import { rmdirSync } from 'fs';
+import {rmSync} from 'fs';
+import {rmdirSync} from 'fs';
 
 /**
  * @description Const used to store a repeated message
  * and not have to write it everytime it's needed
  */
-const noteNotFound = "Note not found!";
+const noteNotFound = 'Note not found!';
 
 /**
  * @description Class Notes that represents multiple operations working with
@@ -29,7 +29,7 @@ export class Notes {
   /**
    * @description Static getter method that returns the instance of the notes
    * class and creates it if doesn't exist
-   * @returns Returns a Notes instance
+   * @return Returns a Notes instance
    */
   public static getNotesInstance(): Notes {
     if (!Notes.NotesInstance) {
@@ -45,7 +45,7 @@ export class Notes {
    * @param title Consists of a string representing the user's note title
    * @param body Consists of a string representing the user's note body
    * @param color Consists of a string representing the user's note color
-   * @returns Returns a string with the result of adding the note,
+   * @return Returns a string with the result of adding the note,
    * or an error
    */
   public addNote(user: string, title: string, body: string, color: string) {
@@ -54,10 +54,10 @@ export class Notes {
     const dir = this.getRoute(user);
     const fileRoute = dir + `${title}`;
     if (existsSync(fileRoute)) {
-      return "Note title taken!";
+      return 'Note title taken!';
     }
     writeFileSync(fileRoute, data);
-    return "New note added!";
+    return 'New note added!';
   }
 
   /**
@@ -68,7 +68,7 @@ export class Notes {
    * @param title Consists of a string representing the user's note title
    * @param body Consists of a string representing the user's note body
    * @param color Consists of a string representing the user's note color
-   * @returns Returns a string with the result of modifying the note,
+   * @return Returns a string with the result of modifying the note,
    * or an error
    */
   public modifyNote(user: string, title: string, body?: string,
@@ -91,7 +91,7 @@ export class Notes {
     const data =
       `{ "title": "${title}", "body": "${newBody}", "color": "${newColor}" }`;
     writeFileSync(fileRoute, data);
-    return "Note modified succesfully!";
+    return 'Note modified succesfully!';
   }
 
   /**
@@ -99,7 +99,7 @@ export class Notes {
    * and the title of the note
    * @param user Consists of a string representing user's name
    * @param title Consists of a string representing the user's note title
-   * @returns Returns a string with the result of removing the note, or an error
+   * @return Returns a string with the result of removing the note, or an error
    */
   public removeNote(user: string, title: string) {
     const dir = this.getRoute(user);
@@ -109,16 +109,16 @@ export class Notes {
     }
     rmSync(fileRoute);
     if (readdirSync(dir).length === 0) {
-        rmdirSync(dir);
+      rmdirSync(dir);
     }
-    return "Note removed!";
+    return 'Note removed!';
   }
 
   /**
    * @description Method for reading a specific user note
    * @param user Consists of a string representing user's name
    * @param title Consists of a string representing the user's note title
-   * @returns Returns a string with the result of reading the note, or an error
+   * @return Returns a string with the result of reading the note, or an error
    */
   public readNote(user: string, title: string) {
     const dir = this.getRoute(user);
@@ -128,23 +128,24 @@ export class Notes {
     }
     const fileData = readFileSync(fileRoute);
     const dataToJson = JSON.parse(fileData.toString());
-    let result = dataToJson.title + "\n" + chalk[dataToJson.color](dataToJson.body);
+    const result =
+      dataToJson.title + '\n' + chalk[dataToJson.color](dataToJson.body);
     return result;
   }
 
   /**
    * @description Method that lists all the notes from the user's directory.
    * @param user Consists of a string representing user's name
-   * @returns Returns a string with the result of listing all the user notes
+   * @return Returns a string with the result of listing all the user notes
    */
   public listNotes(user: string) {
     const dir = this.getRoute(user);
-    let list = "Your notes";
+    let list = 'Your notes';
     readdirSync(dir).forEach((file) => {
       const fileData = readFileSync(dir + file);
       const dataToJson = JSON.parse(fileData.toString());
       const color: string = dataToJson.color;
-      list += chalk[color]("\n" + dataToJson.title);
+      list += chalk[color]('\n' + dataToJson.title);
     });
     return list;
   }
@@ -153,7 +154,7 @@ export class Notes {
    * @description Getter method for checking if a route exists, creating it
    * if doesn't exist
    * @param user Consists of a string
-   * @returns Returns a string
+   * @return Returns a string
    */
   private getRoute(user: string) {
     const route = `./db/${user}/`;
