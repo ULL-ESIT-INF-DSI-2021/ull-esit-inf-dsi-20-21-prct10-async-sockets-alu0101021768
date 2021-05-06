@@ -16,7 +16,7 @@ describe('MessageEventEmitterClient Tests', () => {
       body: 'This is a red note',
       color: 'red',
     };
-    client.on('data', (message) => {
+    client.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
@@ -31,7 +31,7 @@ describe('MessageEventEmitterClient Tests', () => {
       body: 'This is not a red note',
       color: 'green',
     };
-    client.on('data', (message) => {
+    client.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
@@ -43,7 +43,7 @@ describe('MessageEventEmitterClient Tests', () => {
       type: 'list',
       user: "nestor",
     };
-    client.on('data', (message) => {
+    client.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
@@ -56,7 +56,7 @@ describe('MessageEventEmitterClient Tests', () => {
       user: "nestor",
       title: "Green note",
     };
-    client.on('data', (message) => {
+    client.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
@@ -69,7 +69,7 @@ describe('MessageEventEmitterClient Tests', () => {
       user: "nestor",
       title: "Green note",
     };
-    client.on('data', (message) => {
+    client.on('end', (message) => {
       expect(message).to.be.eql(request);
     });
     socket.emit('data', JSON.stringify(request));
